@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dark Mode with Tailwind</title>
+    <link rel="stylesheet" href="/dist/output.css" />
+  </head>
+  <body class="bg-white text-black dark:bg-gray-900 dark:text-white">
+    <div
+      class="flex items-center justify-center min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-300"
+    >
+      <button
+        id="theme-toggle"
+        aria-label="Toggle Dark Mode"
+        class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:ring-2 hover:ring-blue-500 transition"
+      >
+        <!-- Sun Icon (Light Mode) -->
+        <svg
+          id="icon-sun"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 block dark:hidden"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 3v1m0 16v1m8.66-8.66l-.71.71M4.05 4.05l-.71.71M21 12h1M2 12H1m16.95 4.95l.71.71M4.05 19.95l.71-.71M12 8a4 4 0 100 8 4 4 0 000-8z"
+          />
+        </svg>
+
+        <!-- Moon Icon (Dark Mode) -->
+        <svg
+          id="icon-moon"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 hidden dark:block"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="min-h-screen flex items-center justify-center">
+      <button
+        id="theme-toggle"
+        class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded"
+      >
+        Toggle Dark Mode
+      </button>
+    </div>
+
+    <script>
+      const root = document.documentElement;
+      const toggleBtn = document.getElementById("theme-toggle");
+
+      // Apply saved or system preference
+      if (
+        localStorage.theme === "dark" ||
+        (!localStorage.theme &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        root.classList.add("dark");
+      } else {
+        root.classList.remove("dark");
+      }
+
+      // Toggle dark class and persist
+      toggleBtn.addEventListener("click", () => {
+        const isDark = root.classList.toggle("dark");
+        localStorage.theme = isDark ? "dark" : "light";
+      });
+    </script>
+  </body>
+</html>
